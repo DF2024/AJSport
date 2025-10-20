@@ -1,6 +1,13 @@
-from typing import List
+from typing import TYPE_CHECKING
 from sqlmodel import SQLModel, Field, Relationship
 from pydantic import Optional
+
+if TYPE_CHECKING:
+    from .models_trademark import Trademark
+    from .models_status import Status
+    from .models_type import VehicleType
+    from .models_buy import Buy
+
 
 class Vehicle(SQLModel, table = True):
     id_vehicle : Optional[int]  = Field(default=None, primary_key=True)
@@ -11,7 +18,13 @@ class Vehicle(SQLModel, table = True):
     mileage_vehicle : int
     price_vehicle : float
 
+    #CLAVES FORANEAS
     trademark_id : Optional[int] = Field(default = None, foreign_key="trademark.id_trademark")
     status_id : Optional[int] = Field(default = None, foreign_key="status.id_status")
+    type_id: Optional[int] = Field(default = None, foreign_key = "type.id_type")
 
-    buy : List["Buy"] = Relationship(back_populates="vehicle")
+    #RELACIONES
+    trademark: "Trademark" | None = Relationship(back_populates="vehicles")
+    status: "Status" | None = Relationship(back_populates="vehicles")
+    vehicle_type: "VehicleType" | None = Relationship(back_populates="vehicles")
+    buys: list["Buy"] = Relationship(back_populates="vehicle")
