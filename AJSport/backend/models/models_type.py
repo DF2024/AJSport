@@ -1,6 +1,6 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 from sqlmodel import SQLModel, Field, Relationship
-from pydantic import Optional
+
 
 if TYPE_CHECKING:
     from .models_vehicle import Vehicle

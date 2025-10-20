@@ -32,7 +32,6 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode.update({"exp" : expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm = ALGORITHM)
 
-# ======= DEPENDENCIA PARA EXTRAER USUARIO ACTUAL =======
 def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,

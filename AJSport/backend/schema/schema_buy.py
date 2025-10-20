@@ -1,9 +1,10 @@
 from sqlmodel import SQLModel
 from datetime import date
-from typing import Optional
-from .user_schemas import UserRead  # Asegúrate de importar estos
-from .vehicle_schemas import VehicleRead # Asegúrate de importar estos
+from typing import Optional, TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from .schema_user import UserRead
+    from .schema_vehicle import VehicleRead
 
 class BuyCreate(SQLModel):
     price : float
@@ -13,12 +14,12 @@ class BuyCreate(SQLModel):
 class BuyRead(SQLModel):
     id_buy : int
     date_buy : date
-    user: Optional[UserRead] = None
-    vehicle: Optional[VehicleRead] = None
+    user: Optional["UserRead"] = None
+    vehicle: Optional["VehicleRead"] = None
 
 class BuyReadWithDetails(BuyRead):
-    user: Optional[UserRead] = None
-    vehicle: Optional[VehicleRead] = None
+    user: Optional["UserRead"] = None
+    vehicle: Optional["VehicleRead"] = None
 
 class BuyUpdate(SQLModel):
     price : Optional[float] = None

@@ -1,6 +1,6 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 from sqlmodel import SQLModel, Field, Relationship
-from pydantic import Optional
+
 
 if TYPE_CHECKING:
     from .models_trademark import Trademark
@@ -24,7 +24,7 @@ class Vehicle(SQLModel, table = True):
     type_id: Optional[int] = Field(default = None, foreign_key = "type.id_type")
 
     #RELACIONES
-    trademark: "Trademark" | None = Relationship(back_populates="vehicles")
-    status: "Status" | None = Relationship(back_populates="vehicles")
-    vehicle_type: "VehicleType" | None = Relationship(back_populates="vehicles")
+    trademark: Optional["Trademark"] = Relationship(back_populates="vehicles")
+    status: Optional["Status"] = Relationship(back_populates="vehicles")
+    vehicle_type: Optional["VehicleType"] = Relationship(back_populates="vehicles")
     buys: list["Buy"] = Relationship(back_populates="vehicle")

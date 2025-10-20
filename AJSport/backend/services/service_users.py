@@ -15,6 +15,11 @@ def get_user_by_id(db: Session, user_id: int):
     
     return UserRead.model_validate(user)
 
+def get_user_by_email(db: Session, email: str) -> User | None:
+    """Obtiene un usuario por su dirección de email."""
+    statement = select(User).where(User.email_user == email)
+    return db.exec(statement).first()
+
 def create_users(db: Session, user_data: UserCreate):
     statement = select(User).where(User.email_user == user_data.email_user)
     existing_user = db.exec(statement).first()

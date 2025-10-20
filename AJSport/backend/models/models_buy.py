@@ -1,11 +1,10 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 from sqlmodel import SQLModel, Field, Relationship
-from pydantic import Optional
 from datetime import date
 
 if TYPE_CHECKING:
-    from .user import User
-    from .vehicle import Vehicle
+    from .models_users import User
+    from .models_vehicle import Vehicle
 
 class Buy(SQLModel, table = True):
     id_buy : Optional[int] = Field(default = None, primary_key = True)
@@ -16,5 +15,5 @@ class Buy(SQLModel, table = True):
     id_vehicle: int | None = Field(default=None, foreign_key="vehicle.id_vehicle")
 
 
-    user: "User" | None = Relationship(back_populates="buys")
-    vehicle: "Vehicle" | None = Relationship(back_populates="buys")
+    user: Optional["User"]  = Relationship(back_populates="buys")
+    vehicle: Optional["Vehicle"] = Relationship(back_populates="buys")

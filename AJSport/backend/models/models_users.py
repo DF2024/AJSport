@@ -1,8 +1,8 @@
 from typing import TYPE_CHECKING
-from typing import List
+from typing import  Optional
 from sqlmodel import SQLModel, Field, Relationship
 from datetime import datetime, date
-from pydantic import EmailStr, Optional
+from pydantic import EmailStr
 
 if TYPE_CHECKING:
     from .models_buy import Buy

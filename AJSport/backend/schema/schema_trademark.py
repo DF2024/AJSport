@@ -1,6 +1,10 @@
 from sqlmodel import SQLModel
 from typing import List
-from .vehicle_schemas import VehicleRead # Importación necesaria
+from typing import List, TYPE_CHECKING # Importa TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from .schema_vehicle import VehicleRead
 
 class TrademarkBase(SQLModel):
     name_trademark : str
@@ -12,4 +16,6 @@ class TrademarkRead(TrademarkBase):
     id_trademark: int
 
 class TrademarkReadWithVehicles(TrademarkRead):
-    vehicles: List[VehicleRead] = []
+    vehicles: List["VehicleRead"] = []
+
+

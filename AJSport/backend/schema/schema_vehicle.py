@@ -1,9 +1,10 @@
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from sqlmodel import SQLModel
-from .schema_trademark import TrademarkRead
-from .schema_status import StatusRead
-from .schema_type import VehicleTypeRead
 
+if TYPE_CHECKING:
+    from .schema_trademark import TrademarkRead
+    from .schema_status import StatusRead
+    from .schema_type import VehicleTypeRead
 
 class VehicleBase(SQLModel):
     name_vehicle : str
@@ -22,9 +23,9 @@ class VehicleRead(VehicleBase):
     id_vehicle: int
 
 class VehicleReadWithDetails(VehicleRead):
-    trademark: Optional[TrademarkRead] = None
-    status: Optional[StatusRead] = None
-    vehicle_type: Optional[VehicleTypeRead] = None 
+    trademark: Optional["TrademarkRead"] = None
+    status: Optional["StatusRead"] = None
+    vehicle_type: Optional["VehicleTypeRead"] = None
 
 class VehicleUpdate(SQLModel):
     name_vehicle: Optional[str] = None
