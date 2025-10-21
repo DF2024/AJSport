@@ -42,9 +42,9 @@ def create_vehicle(db: Session, vehicle_data: VehicleCreate) -> Vehicle:
     return new_vehicle
 
 def update_vehicle(db: Session, vehicle_id: int, vehicle_data: VehicleUpdate) -> Vehicle:
-    """Actualiza un vehículo."""
+    
     vehicle = get_vehicle_by_id(db, vehicle_id)
-    _validate_foreign_keys(db, vehicle_data) # Validamos cualquier nuevo ID que se envíe
+    _validate_foreign_keys(db, vehicle_data) 
 
     update_data = vehicle_data.model_dump(exclude_unset=True)
     for key, value in update_data.items():

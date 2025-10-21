@@ -2,12 +2,13 @@ from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from fastapi.security import HTTPBearer
+from fastapi.security import OAuth2PasswordBearer
 from fastapi import HTTPException, status, Depends
 from backend.models.models_users import User
 from backend.database.db import get_session
 from sqlmodel import Session, select
 
-oauth2_scheme = HTTPBearer()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 SECRET_KEY = "secret_key_auth"
 

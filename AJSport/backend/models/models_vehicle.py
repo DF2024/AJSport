@@ -14,14 +14,13 @@ class Vehicle(SQLModel, table = True):
     name_vehicle : str
     description_vehicle: str
     year_vehicle : int
-    type_vehicle: str
     mileage_vehicle : int
     price_vehicle : float
 
     #CLAVES FORANEAS
     trademark_id : Optional[int] = Field(default = None, foreign_key="trademark.id_trademark")
     status_id : Optional[int] = Field(default = None, foreign_key="status.id_status")
-    type_id: Optional[int] = Field(default = None, foreign_key = "type.id_type")
+    type_id: Optional[int] = Field(default = None, foreign_key = "vehicletype.id_type")
 
     #RELACIONES
     trademark: Optional["Trademark"] = Relationship(back_populates="vehicles")

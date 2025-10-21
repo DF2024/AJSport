@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel
-from datetime import date
+from datetime import date, datetime
 from typing import Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -13,7 +13,7 @@ class BuyCreate(SQLModel):
 
 class BuyRead(SQLModel):
     id_buy : int
-    date_buy : date
+    date_buy : datetime
     user: Optional["UserRead"] = None
     vehicle: Optional["VehicleRead"] = None
 

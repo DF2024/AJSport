@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Optional
 from sqlmodel import SQLModel, Field, Relationship
-from datetime import date
+from datetime import datetime
+
 
 if TYPE_CHECKING:
     from .models_users import User
@@ -8,7 +9,7 @@ if TYPE_CHECKING:
 
 class Buy(SQLModel, table = True):
     id_buy : Optional[int] = Field(default = None, primary_key = True)
-    date_buy : date
+    date_buy : datetime = Field(default_factory=datetime.utcnow)
     price: float | None = Field(default=None)
 
     id_user: int | None = Field(default=None, foreign_key="user.id_user")
