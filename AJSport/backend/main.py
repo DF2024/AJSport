@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from backend.routers import router_users,router_auth, router_buy, router_status, router_trademark, router_type, router_vehicle
+from backend.routers import router_users,router_auth, router_buy, router_status, router_trademark, router_type, router_vehicle, router_roles
 from backend.database.db import lifespan
+
 
 app = FastAPI(
     title="API de Venta de Vehículos",
@@ -9,6 +10,7 @@ app = FastAPI(
     lifespan = lifespan
 )
 
+app.include_router(router_roles.router)
 app.include_router(router_users.router)
 app.include_router(router_trademark.router)
 app.include_router(router_vehicle.router)

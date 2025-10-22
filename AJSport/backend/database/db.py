@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
-from sqlmodel import SQLModel, Session, create_engine
+from backend.models.models_role import Role
+from sqlmodel import SQLModel, Session, create_engine, select
 from fastapi import FastAPI, Depends
 from typing import Annotated
 
@@ -16,4 +17,10 @@ SessionDep = Annotated[Session, Depends(get_session)]
 @asynccontextmanager
 async def lifespan(app : FastAPI):
     SQLModel.metadata.create_all(engine)
+    with Session(engine) as session:
+        for role_name in ["admin", "client"]:
+            existing = session.exec(select(Role).where(Role.name_role == role_name)).first()
+            if not existing:
+                session.add(Role(name_role=role_name))
+        session.commit()
     yield

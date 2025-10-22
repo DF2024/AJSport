@@ -43,7 +43,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: int = payload.get("sub")
-        if user_id is None:
+        role_name: str = payload.get("role")
+        if user_id is None or role_name is None:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
@@ -51,5 +52,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
     user = session.get(User, user_id)
     if user is None:
         raise credentials_exception
+
+    user.role = user.role or type("Role", (), {"name_role": role_name})()
 
     return user

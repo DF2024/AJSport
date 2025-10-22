@@ -1,3 +1,4 @@
+from backend.models.models_role import Role
 from fastapi import HTTPException
 from sqlmodel import Session, select
 from backend.models.models_users import User
@@ -25,12 +26,26 @@ def create_users(db: Session, user_data: UserCreate):
     existing_user = db.exec(statement).first()
 
     if existing_user:
-        raise HTTPException(status_code = 400, detail = "user alrealy registered")
+        raise HTTPException(
+            status_code = 400, 
+            detail = "user alrealy registered"
+            )
     
+    role_stmt = select(Role).where(Role.name_role == "client")
+    role = db.exec(role_stmt).first()
+
+    if not role:
+        role = Role(name_role="client")
+        db.add(role)
+        db.commit()
+        db.refresh(role)
+
     user_dict = user_data.model_dump()
     password = user_dict.pop("password")
     user_dict["hash_password"] = auth.hash_password(password)
     
+    user_dict["role_id"] = role.id_role
+
     new_user = User(**user_dict) 
 
     db.add(new_user)
