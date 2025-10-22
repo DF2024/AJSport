@@ -1,3 +1,4 @@
+from backend.utils.roles import require_role
 from fastapi import APIRouter, Depends, status
 from sqlmodel import Session
 from backend.database.db import get_session
@@ -11,7 +12,7 @@ router = APIRouter(
     tags=["Vehicles"]
 )
 
-@router.post("/", response_model=VehicleReadWithDetails, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=VehicleReadWithDetails, status_code=status.HTTP_201_CREATED, dependencies=[Depends(require_role("admin"))])
 def create_vehicle_view(vehicle_data: VehicleCreate, db: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
     return service_vehicle.create_vehicle(db=db, vehicle_data=vehicle_data)
 
@@ -23,11 +24,11 @@ def get_all_vehicles_view(db: Session = Depends(get_session)): # Endpoint públi
 def get_vehicle_by_id_view(vehicle_id: int, db: Session = Depends(get_session)): # Endpoint público
     return service_vehicle.get_vehicle_by_id(db=db, vehicle_id=vehicle_id)
 
-@router.put("/{vehicle_id}", response_model=VehicleReadWithDetails)
+@router.put("/{vehicle_id}", response_model=VehicleReadWithDetails, dependencies=[Depends(require_role("admin"))])
 def update_vehicle_view(vehicle_id: int, vehicle_data: VehicleUpdate, db: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
     return service_vehicle.update_vehicle(db=db, vehicle_id=vehicle_id, vehicle_data=vehicle_data)
 
-@router.delete("/{vehicle_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{vehicle_id}", status_code=status.HTTP_204_NO_CONTENT, dependencies=[Depends(require_role("admin"))])
 def delete_vehicle_view(vehicle_id: int, db: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
     service_vehicle.delete_vehicle(db=db, vehicle_id=vehicle_id)
     return
