@@ -6,6 +6,7 @@ from datetime import datetime
 if TYPE_CHECKING:
     from .models_users import User
     from .models_vehicle import Vehicle
+    from .models_buy import Buy
 
 class Buy(SQLModel, table = True):
     id_buy : Optional[int] = Field(default = None, primary_key = True)
