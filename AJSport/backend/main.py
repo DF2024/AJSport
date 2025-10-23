@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from backend.routers import router_users,router_auth, router_buy, router_status, router_trademark, router_type, router_vehicle, router_roles
 from backend.database.db import lifespan
 
@@ -9,6 +10,19 @@ app = FastAPI(
     version="1.0.0",
     lifespan = lifespan
 )
+
+origins = [
+    "http://localhost:5173/"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # o ["*"] para permitir todos
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 app.include_router(router_roles.router)
 app.include_router(router_users.router)

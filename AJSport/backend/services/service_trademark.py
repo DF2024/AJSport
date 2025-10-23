@@ -30,7 +30,7 @@ def create_trademark(db: Session, trademark_data: TrademarkCreate) -> Trademark:
 
 
 def delete_trademark(db: Session, trademark_id: int) -> dict:
-    """Elimina una marca."""
+
     trademark = get_trademark_by_id(db, trademark_id)
     
     db.delete(trademark)
