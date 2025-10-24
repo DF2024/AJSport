@@ -5,17 +5,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import App from './App.jsx'
+import theme from './theme'
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#f7f7f7ff', // Un azul como color principal
-    },
-    secondary: {
-      main: '#dc004e', // Un rosa como color secundario
-    },
-  },
-});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>

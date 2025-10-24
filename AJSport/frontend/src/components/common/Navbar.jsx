@@ -1,11 +1,11 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Box, Button, Link } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, Button, Link, Stack } from '@mui/material';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'; 
 
 function Navbar() {
 
     return(
-        <AppBar position="static">
+        <AppBar position="static" color='primary'>
             <Toolbar>
                 {/* Logo y Nombre de la Empresa */}
                 <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
@@ -18,12 +18,12 @@ function Navbar() {
                 </Box>
 
                 {/* Enlaces de Navegación */}
-                <Box>
+                <Stack direction="row" spacing={2}>
                     <Button color="inherit" component={RouterLink} to="/">Inicio</Button>
                     <Button color="inherit" component={RouterLink} to="/catalogo">Catálogo</Button>
-                    <Button color="inherit" variant='contained' component={RouterLink} to="/login">Iniciar Sesión</Button>
-                    <Button color="inherit" variant='outlined' component={RouterLink} to="/registro">Registrarse</Button>
-                </Box>
+                    <Button color="inherit" variant='outlined' component={RouterLink} to="/login">Iniciar Sesión</Button>
+                    <Button color="secondary" variant='contained' component={RouterLink} to="/registro">Registrarse</Button>
+                </Stack>
             </Toolbar>
         </AppBar>
     );
