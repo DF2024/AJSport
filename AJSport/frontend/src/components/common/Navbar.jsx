@@ -1,6 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Box, Button, Link, Stack } from '@mui/material';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'; 
+import ButtonClasic from './Button';
 
 function Navbar() {
 
@@ -9,12 +10,12 @@ function Navbar() {
             <Toolbar>
                 {/* Logo y Nombre de la Empresa */}
                 <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-                <DirectionsCarIcon sx={{ mr: 1 }} />
-                <Typography variant="h6" component="div">
-                    <Link component={RouterLink} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
-                    Mi Concesionario
-                    </Link>
-                </Typography>
+                    <DirectionsCarIcon sx={{ mr: 1 }} />
+                    <Typography variant="h6" component="div">
+                        <Link component={RouterLink} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
+                        Mi Concesionario
+                        </Link>
+                    </Typography>
                 </Box>
 
                 {/* Enlaces de Navegación */}

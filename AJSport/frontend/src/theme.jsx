@@ -1,5 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
+
+
 const theme = createTheme({
 
 // COLORES 
@@ -14,6 +16,7 @@ const theme = createTheme({
         default: '#d8d8d8ff',
         paper: '#ffffff', 
     },
+    
   },
 
 // TIPOGRAFIA
