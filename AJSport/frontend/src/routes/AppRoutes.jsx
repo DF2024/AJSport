@@ -11,9 +11,9 @@ const AppRoutes = () =>{
         <Route element={<MainLayout/>}>
         <Route path="/" element={<HomePage />} />
         <Route path="/catalogo" element={<VehiclesPage />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Register />} />
-        </Route>
     </Routes>
 
 
