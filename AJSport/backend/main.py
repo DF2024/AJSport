@@ -12,7 +12,7 @@ app = FastAPI(
 )
 
 origins = [
-    "http://localhost:5173/"
+    "http://localhost:5174",
 ]
 
 app.add_middleware(
@@ -23,7 +23,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(router_roles.router)
 app.include_router(router_users.router)
 app.include_router(router_trademark.router)
@@ -33,6 +32,6 @@ app.include_router(router_auth.router)
 app.include_router(router_status.router)
 app.include_router(router_type.router)
 
-@app.get("/")
+@app.get("/bienvenida")
 def read_root():
     return {"message": "Bienvenido a la API de Venta de Vehículos"}
