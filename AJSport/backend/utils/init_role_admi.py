@@ -26,7 +26,7 @@ def init_roles_and_admin():
             admin_user = User(
                 name_user="Administrador",
                 lastname_user="Principal",
-                email_user="admin@example.com",
+                email_user="admin@correo.com",
                 hash_password=hash_password("admin123"),
                 ci_user="00000000",
                 number_user="00000000",

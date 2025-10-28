@@ -16,6 +16,7 @@ class Vehicle(SQLModel, table = True):
     year_vehicle : int
     mileage_vehicle : int
     price_vehicle : float
+    image_path: Optional[str] = Field(default=None)
 
     #CLAVES FORANEAS
     trademark_id : Optional[int] = Field(default = None, foreign_key="trademark.id_trademark")

@@ -12,7 +12,7 @@ class VehicleBase(SQLModel):
     year_vehicle : int
     mileage_vehicle : int
     price_vehicle : float
-
+    image_url : Optional[str] = None
 
 class VehicleCreate(VehicleBase):
     trademark_id : int
