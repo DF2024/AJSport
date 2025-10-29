@@ -1,4 +1,6 @@
 from typing import Optional, TYPE_CHECKING
+
+from pydantic import field_serializer
 from sqlmodel import SQLModel
 
 if TYPE_CHECKING:
@@ -12,7 +14,8 @@ class VehicleBase(SQLModel):
     year_vehicle : int
     mileage_vehicle : int
     price_vehicle : float
-    image_url : Optional[str] = None
+    image_path : Optional[str] = None
+    image_url: Optional[str] = None
 
 class VehicleCreate(VehicleBase):
     trademark_id : int
@@ -22,11 +25,19 @@ class VehicleCreate(VehicleBase):
 class VehicleRead(VehicleBase):
     id_vehicle: int
 
+
 class VehicleReadWithDetails(VehicleRead):
     trademark: Optional["TrademarkRead"] = None
     status: Optional["StatusRead"] = None
     vehicle_type: Optional["VehicleTypeRead"] = None
 
+    @field_serializer("image_url")
+    def compute_image_url(self, v, info):
+        if self.image_path:
+            return f"http://127.0.0.1:8000/media/{self.image_path}"
+        return "https://via.placeholder.com/300x200?text=No+image"
+    
+    
 class VehicleUpdate(SQLModel):
     name_vehicle: Optional[str] = None
     description_vehicle: Optional[str] = None

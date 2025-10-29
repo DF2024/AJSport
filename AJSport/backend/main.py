@@ -1,3 +1,4 @@
+import os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,13 +20,15 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # o ["*"] para permitir todos
+    allow_origins=["*"],  # o ["*"] para permitir todos
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+MEDIA_DIR = os.path.join(os.path.dirname(__file__), "media")
+
+app.mount("/media", StaticFiles(directory="media"), name="media")
 app.include_router(router_roles.router)
 app.include_router(router_users.router)
 app.include_router(router_trademark.router)
