@@ -79,10 +79,10 @@ const VehicleCard = ({ vehicle }) => {
       </CardContent>
 
       {/* Botones */}
-      <CardActions>
+      {/* <CardActions>
         <Button size="small" variant="contained">Comprar</Button>
         <Button size="small">Ver Detalles</Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };
