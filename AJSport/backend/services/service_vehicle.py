@@ -1,5 +1,6 @@
 import os
-from uuid import uuid4
+import uuid
+# from uuid import uuid4
 from fastapi import HTTPException, UploadFile
 from sqlmodel import Session, select
 from backend.models.models_vehicle import Vehicle
@@ -12,14 +13,16 @@ os.makedirs(MEDIA_DIR, exist_ok=True)
 
 async def save_vehicle_image(image: UploadFile, vehicle_id: int) -> str:
     extension = os.path.splitext(image.filename)[1]
-    filename = f"{vehicle_id}_{uuid4().hex}{extension}"
+    filename = f"{vehicle_id}_{uuid.uuid4().hex}{extension}"
     file_path = os.path.join(MEDIA_DIR, filename)
+
+    print("🧩 Guardando imagen en:", os.path.abspath(file_path))
 
     with open(file_path, "wb") as f:
         content = await image.read()
         f.write(content)
 
-    return f"vehicles/{filename}"  # ruta relativa
+    return f"media/vehicles/{filename}"  # ruta relativa
 
 def delete_vehicle_image(image_path: str):
     file_path = os.path.join("backend/media", image_path)
@@ -62,14 +65,14 @@ def _add_image_url(vehicle: Vehicle):
 
 # --- CRUD ---
 def get_all_vehicles(db: Session) -> list[Vehicle]:
-    vehicles = db.exec(select(Vehicle)).all()
-    return [_add_image_url(v) for v in vehicles]
+    # vehicles = db.exec(select(Vehicle)).all()
+    return db.query(Vehicle).all()
 
-def get_vehicle_by_id(db: Session, vehicle_id: int) -> Vehicle:
+def get_vehicle_by_id(db: Session, vehicle_id: int) -> Vehicle :
     vehicle = db.get(Vehicle, vehicle_id)
     if not vehicle:
         raise HTTPException(status_code=404, detail="Vehicle not found")
-    return _add_image_url(vehicle)
+    return vehicle
 
 async def create_vehicle(db: Session, vehicle_data, image: UploadFile | None = None) -> Vehicle:
     _validate_foreign_keys(db, vehicle_data)

@@ -23,11 +23,13 @@ async def create_vehicle_view(
 
 @router.get("/", response_model=list[VehicleRead])
 def get_all_vehicles_view(db: DBSession):
-    return service_vehicle.get_all_vehicles(db=db)
+    vehicle = service_vehicle.get_all_vehicles(db=db)
+    return [service_vehicle._add_image_url(v) for v in vehicle]
 
 @router.get("/{vehicle_id}", response_model=VehicleReadWithDetails)
 def get_vehicle_by_id_view(vehicle_id: int, db: DBSession):
-    return service_vehicle.get_vehicle_by_id(db=db, vehicle_id=vehicle_id)
+    vehicle = service_vehicle.get_vehicle_by_id(db=db, vehicle_id=vehicle_id)
+    return service_vehicle._add_image_url(vehicle)
 
 @router.put("/{vehicle_id}", response_model=VehicleReadWithDetails, dependencies=AdminAuth)
 async def update_vehicle_view(

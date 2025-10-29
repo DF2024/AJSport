@@ -25,10 +25,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 MEDIA_DIR = os.path.join(os.path.dirname(__file__), "media")
+app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
 
-app.mount("/media", StaticFiles(directory="media"), name="media")
 app.include_router(router_roles.router)
 app.include_router(router_users.router)
 app.include_router(router_trademark.router)
