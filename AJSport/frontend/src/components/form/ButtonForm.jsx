@@ -9,6 +9,7 @@ function FormButtons({name}) {
   return (
     <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
       <Button
+        type="submit"
         variant="contained" // El estilo más prominente
         color="primary"     // Color principal del tema
         endIcon={<AccountCircleIcon />} // Icono al final del texto

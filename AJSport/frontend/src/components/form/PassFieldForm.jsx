@@ -1,35 +1,26 @@
 import React, { useState } from 'react';
-import {
-  IconButton,
-  InputAdornment,
-  TextField,
-} from '@mui/material';
+import { TextField, IconButton, InputAdornment } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-function PasswordTextField() {
+function PasswordTextField({ name, value, onChange, error, helperText }) {
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState('');
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const handleChange = (event) => {
-    setPassword(event.target.value);
-  };
+  const handleClickShowPassword = () => setShowPassword(prev => !prev);
+  const handleMouseDownPassword = (event) => event.preventDefault();
 
   return (
     <TextField
       label="Contraseña"
       type={showPassword ? 'text' : 'password'}
-      value={password}
-      onChange={handleChange}
-      variant="outlined" // Puedes usar 'filled' o 'standard' también
-      fullWidth // Para que ocupe todo el ancho disponible
-      margin="normal" // Agrega un poco de margen
+      name={name}
+      value={value}
+      onChange={onChange}
+      variant="outlined"
+      fullWidth
+      margin="normal"
+      error={error}
+      helperText={helperText}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -49,3 +40,4 @@ function PasswordTextField() {
 }
 
 export default PasswordTextField;
+
