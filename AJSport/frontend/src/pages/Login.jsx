@@ -1,88 +1,122 @@
-import React from 'react';
-import { Box, Typography, Stack, Link as MuiLink } from '@mui/material'; // Importa Link de Material-UI y Typography, Stack
-import { Link as RouterLink } from 'react-router-dom'; // Importa Link de react-router-dom
-
-import PasswordTextField from '../components/form/PassFieldForm';
-import EmailInput from '../components/form/EmailFieldForm';
-import FormButtons from '../components/form/ButtonForm';
+import React, { useState } from 'react';
+import { TextField, Button, Box, Typography, Alert } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    // Puedes añadir una función de manejo de envío de formulario aquí si es necesario
-    const handleSubmit = (event) => {
-        event.preventDefault(); // Evita que la página se recargue
-        alert('Formulario de login enviado (lógica pendiente)');
-        // Aquí iría la lógica para autenticar al usuario
-    };
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email_user: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
 
-    return (
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      console.log('📤 Enviando credenciales al backend:', formData);
+
+      const response = await fetch('http://127.0.0.1:8000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          username: formData.email_user, // FastAPI OAuth2 usa "username"
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+      console.log('📦 Respuesta del backend:', data);
+
+      if (response.ok && data.access_token) {
+        localStorage.setItem('token', data.access_token);
+        console.log('✅ Login exitoso. Token guardado.');
+        navigate('/'); // o la ruta que quieras
+      } else {
+        setError('Credenciales incorrectas. Intenta de nuevo.');
+      }
+    } catch (error) {
+      console.error('❌ Error en el login:', error);
+      setError('Error al conectar con el servidor.');
+    }
+  };
+
+  return (
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{ 
+            minHeight: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            bgcolor: 'grey.100',
+            p: 3,
+        }}
+    >
+
+
         <Box
             sx={{
-                minHeight: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                bgcolor: 'grey.100',
-                p: 3,
+                bgcolor: 'background.paper',
+                p: 6,
+                borderRadius: 6,
+                boxShadow: 3,
+                maxWidth: 500,
+                width: '100%',
             }}
         >
-            <Box
-                sx={{
-                    bgcolor: 'background.paper',
-                    p: 6,
-                    borderRadius: 6,
-                    boxShadow: 3,
-                    maxWidth: 500,
-                    width: '100%',
-                }}
+                  <Typography variant="h5" align="center" gutterBottom>
+                Iniciar Sesión
+            </Typography>
+
+            <TextField
+                fullWidth
+                label="Correo Electrónico"
+                name="email_user"
+                value={formData.email_user}
+                onChange={handleChange}
+                margin="normal"
+                required
+            />
+            <TextField
+                fullWidth
+                label="Contraseña"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                margin="normal"
+                required
+            />
+
+            {error && (
+                <Alert severity="error" sx={{ mt: 2 }}>
+                {error}
+                </Alert>
+            )}
+
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                sx={{ mt: 3 }}
             >
-                <Typography variant="h4" component="h1" gutterBottom align="center">
-                    Iniciar Sesión
-                </Typography>
-
-                <Stack
-                    component="form"
-                    spacing={3}
-                    noValidate
-                    autoComplete="off"
-                    onSubmit={handleSubmit} // Asigna la función de envío al formulario
-                >
-                    <EmailInput />
-                    <PasswordTextField />
-
-                    {/* El texto con el enlace al formulario de registro */}
-                    <Box sx={{ textAlign: 'center', mt: 1 }}>
-                        <Typography variant="body2">
-                            ¿No tienes una cuenta?{' '}
-                            <MuiLink
-                                component={RouterLink}
-                                to="/registro"
-                                variant="body2"
-                                sx={{ cursor: 'pointer' }}
-                            >
-                                Regístrate aquí
-                            </MuiLink>
-                        </Typography>
-                    </Box>
-
-                    {/* Botones del formulario, centrado */}
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            mt: 2,
-                        }}
-                    >
-                        {/* 
-                            Si FormButtons renderiza múltiples botones, y quieres solo "Iniciar Sesión" aquí,
-                            tendrías que pasarle una prop o crear un componente de botón específico para login.
-                            Por ahora, asumo que FormButtons puede manejar un prop 'name' para el texto del botón principal.
-                        */}
-                        <FormButtons name={'Iniciar Sesión'} /> 
-                    </Box>
-                </Stack>
-            </Box>
+                Iniciar Sesión
+            </Button>
         </Box>
-    );
+      
+    </Box>
+  );
 }
 
 export default Login;

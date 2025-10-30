@@ -12,7 +12,6 @@ const AppRoutes = () =>{
         <Route element={<MainLayout/>}>
             <Route path="/" element={<HomePage />} />
             <Route path="/catalogo" element={<VehiclesPage />} />
-
         </Route>
         <Route element={<SeconLayout/>}>
             <Route path="/login" element={<Login />} />
