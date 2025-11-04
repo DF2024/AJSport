@@ -74,6 +74,9 @@ def get_vehicle_by_id(db: Session, vehicle_id: int) -> Vehicle :
         raise HTTPException(status_code=404, detail="Vehicle not found")
     return vehicle
 
+def _create_vehicle_object_from_data(vehicle_data: dict) -> Vehicle:
+    return Vehicle(**vehicle_data)
+
 async def create_vehicle(db: Session, vehicle_data, image: UploadFile | None = None) -> Vehicle:
     _validate_foreign_keys(db, vehicle_data)
     new_vehicle = Vehicle.model_validate(vehicle_data)
@@ -111,6 +114,8 @@ async def update_vehicle(db: Session, vehicle_id: int, vehicle_data, image: Uplo
     db.commit()
     db.refresh(vehicle)
     return _add_image_url(vehicle)
+
+
 
 def delete_vehicle(db: Session, vehicle_id: int):
     vehicle = get_vehicle_by_id(db, vehicle_id)

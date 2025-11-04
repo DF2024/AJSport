@@ -14,6 +14,9 @@ router = APIRouter(
     tags=["Statuses"]
 )
 
+AdminAuth = [Depends(get_current_user), Depends(require_role("admin"))]
+
+
 @router.post("/", response_model=StatusRead, status_code=status.HTTP_201_CREATED, dependencies=[Depends(require_role("admin"))])
 def create_status_view(status_data: StatusCreate, db: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
     """
@@ -21,7 +24,7 @@ def create_status_view(status_data: StatusCreate, db: Session = Depends(get_sess
     """
     return service_status.create_status(db=db, status_data=status_data)
 
-@router.get("/", response_model=list[StatusRead])
+@router.get("/", response_model=list[StatusRead],  dependencies=AdminAuth)
 def get_all_statuses_view(db: Session = Depends(get_session)):
     """
     Obtiene una lista de todos los estados de vehículos (público).

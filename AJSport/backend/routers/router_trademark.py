@@ -12,11 +12,14 @@ router = APIRouter(
     tags=["Trademarks"]
 )
 
+AdminAuth = [Depends(get_current_user), Depends(require_role("admin"))]
+
+
 @router.post("/", response_model=TrademarkRead, status_code=status.HTTP_201_CREATED, dependencies=[Depends(require_role("admin"))])
 def create_trademark_view(trademark_data: TrademarkCreate, db: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
     return service_trademark.create_trademark(db=db, trademark_data=trademark_data)
 
-@router.get("/", response_model=list[TrademarkRead])
+@router.get("/", response_model=list[TrademarkRead],  dependencies=AdminAuth)
 def get_all_trademarks_view(db: Session = Depends(get_session)): # Endpoint público
     return service_trademark.get_all_trademarks(db=db)
 

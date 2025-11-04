@@ -3,7 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from backend.routers import router_users,router_auth, router_buy, router_status, router_trademark, router_type, router_vehicle, router_roles
+from backend.routers import router_users, router_auth, router_buy, router_status, router_trademark, router_type, router_vehicle, router_roles
 from backend.database.db import lifespan
 
 
