@@ -27,6 +27,7 @@ function Register({ apiBaseUrl = "http://127.0.0.1:8000" }) {
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const handleChange = (e) => {

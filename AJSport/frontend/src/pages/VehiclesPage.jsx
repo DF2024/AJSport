@@ -13,7 +13,7 @@ const VehiclesPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // ... (la lógica de useEffect no cambia)
+
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -53,12 +53,10 @@ const VehiclesPage = () => {
       </Typography>
 
       {vehicles.length > 0 ? (
-        // El Grid 'container' no cambia
+        
         <Grid container spacing={4}>
           {vehicles.map((vehicle) => (
-            // --- ¡AQUÍ ESTÁ EL CAMBIO PRINCIPAL! ---
-            // 2. APLICA la nueva sintaxis de Grid v2
-            // Ya no se usa la prop "item". Los breakpoints (xs, sm, md) se pasan directamente.
+        
             <Grid key={vehicle.id_vehicle} xs={12} sm={6} md={4}>
               <VehicleCard vehicle={vehicle} />
             </Grid>
