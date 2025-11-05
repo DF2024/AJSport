@@ -1,11 +1,14 @@
 # En un archivo como: backend/routers/auth_router.py
 
+import select
+from models.models_users import User
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm import selectinload
 from sqlmodel import Session
-from backend.database.db import get_session
-from backend.services import service_users
-from backend.auth import auth
+from database.db import get_session
+from services import service_users
+from auth import auth
 
 router = APIRouter(
     tags=["Authentication"]
@@ -18,7 +21,10 @@ def login_for_access_token(
 ):
  
    
-    user = service_users.get_user_by_email(db, email=form_data.username)
+    user = db.exec(
+        select(User).options(selectinload(User.role))
+        .where(User.email_user == form_data.username)
+    ).first()
 
     
     if not user or not auth.verify_password(form_data.password, user.hash_password):
@@ -38,5 +44,5 @@ def login_for_access_token(
     return {
         "access_token": access_token, 
         "token_type": "bearer",
-        "role": user.role
+        "role": user.role.name_role
             }

@@ -1,12 +1,12 @@
 # backend/routers/router_role.py
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
-from backend.database.db import get_session
-from backend.schema.schema_role import RoleRead, RoleCreate, RoleUpdate
-from backend.services.service_role import (
+from database.db import get_session
+from schema.schema_role import RoleRead, RoleCreate, RoleUpdate
+from services.service_role import (
     get_roles, get_role_by_id, create_role, update_role, delete_role
 )
-from backend.utils.roles import require_role
+from utils.roles import require_role
 
 router = APIRouter(prefix="/roles", tags=["Roles"])
 

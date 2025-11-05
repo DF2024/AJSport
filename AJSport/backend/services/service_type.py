@@ -2,8 +2,8 @@
 
 from fastapi import HTTPException
 from sqlmodel import Session, select
-from backend.models.models_type import VehicleType # Ajusta la ruta
-from backend.schema.schema_type import VehicleTypeCreate # Ajusta la ruta
+from models.models_type import VehicleType # Ajusta la ruta
+from schema.schema_type import VehicleTypeCreate # Ajusta la ruta
 
 def get_all_vehicle_types(db: Session) -> list[VehicleType]:
     """Obtiene todos los tipos de vehículos."""

@@ -1,7 +1,7 @@
 from sqlmodel import Session, select
 from fastapi import HTTPException, status
-from backend.models.models_role import Role
-from backend.schema.schema_role import RoleCreate, RoleUpdate
+from models.models_role import Role
+from schema.schema_role import RoleCreate, RoleUpdate
 
 def get_roles(session: Session):
     return session.exec(select(Role)).all()

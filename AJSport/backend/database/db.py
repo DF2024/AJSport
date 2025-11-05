@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 import os
-from backend.models.models_role import Role
+from models.models_role import Role
 from sqlmodel import SQLModel, Session, create_engine, select
 from fastapi import FastAPI, Depends
 from typing import Annotated

@@ -1,9 +1,9 @@
 from fastapi import HTTPException
 from sqlmodel import Session, select
-from backend.models.models_buy import Buy
-from backend.models.models_users import User
-from backend.models.models_vehicle import Vehicle
-from backend.schema.schema_buy import BuyCreate, BuyUpdate # Ajusta la ruta
+from models.models_buy import Buy
+from models.models_users import User
+from models.models_vehicle import Vehicle
+from schema.schema_buy import BuyCreate, BuyUpdate # Ajusta la ruta
 
 def get_all_buys(db: Session) -> list[Buy]:
     """Obtiene todas las compras."""

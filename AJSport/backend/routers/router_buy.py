@@ -1,10 +1,10 @@
-from backend.utils.roles import require_role
+from utils.roles import require_role
 from fastapi import APIRouter, Depends, status
 from sqlmodel import Session
-from backend.database.db import get_session
-from backend.auth.auth import get_current_user
-from backend.services import service_buy
-from backend.schema.schema_buy import BuyCreate, BuyRead, BuyUpdate, BuyReadWithDetails
+from database.db import get_session
+from auth.auth import get_current_user
+from services import service_buy
+from schema.schema_buy import BuyCreate, BuyRead, BuyUpdate, BuyReadWithDetails
 
 router = APIRouter(
     prefix="/buys",

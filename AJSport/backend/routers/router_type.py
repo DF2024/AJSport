@@ -1,11 +1,11 @@
-from backend.utils.roles import require_role
+from utils.roles import require_role
 from fastapi import APIRouter, Depends, status
 from sqlmodel import Session
-from backend.database.db import get_session
-from backend.auth.auth import get_current_user
-from backend.services import service_type
-from backend.schema.schema_type import VehicleTypeCreate, VehicleTypeRead
-from backend.models.models_users import User
+from database.db import get_session
+from auth.auth import get_current_user
+from services import service_type
+from schema.schema_type import VehicleTypeCreate, VehicleTypeRead
+from models.models_users import User
 
 router = APIRouter(
     prefix="/vehicle-types", # Este es tu prefijo base

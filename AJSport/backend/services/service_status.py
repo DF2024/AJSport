@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlmodel import Session, select
-from backend.models.models_status import Status # Ajusta la ruta
-from backend.schema.schema_status import StatusCreate 
+from models.models_status import Status # Ajusta la ruta
+from schema.schema_status import StatusCreate 
 
 def get_all_statuses(db: Session) -> list[Status]:
     """Obtiene todos los estados."""

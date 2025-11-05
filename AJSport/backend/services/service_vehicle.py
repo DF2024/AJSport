@@ -3,10 +3,10 @@ import uuid
 # from uuid import uuid4
 from fastapi import HTTPException, UploadFile
 from sqlmodel import Session, select
-from backend.models.models_vehicle import Vehicle
-from backend.models.models_trademark import Trademark
-from backend.models.models_status import Status
-from backend.models.models_type import VehicleType
+from models.models_vehicle import Vehicle
+from models.models_trademark import Trademark
+from models.models_status import Status
+from models.models_type import VehicleType
 
 MEDIA_DIR = "backend/media/vehicles"
 os.makedirs(MEDIA_DIR, exist_ok=True)

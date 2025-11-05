@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlmodel import Session, select
-from backend.models.models_trademark import Trademark  # Ajusta la ruta a tus modelos
-from backend.schema.schema_trademark import TrademarkCreate
+from models.models_trademark import Trademark  # Ajusta la ruta a tus modelos
+from schema.schema_trademark import TrademarkCreate
 
 def get_all_trademarks(db: Session) -> list[Trademark]:
     """Obtiene todas las marcas."""

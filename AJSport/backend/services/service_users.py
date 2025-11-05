@@ -1,9 +1,9 @@
-from backend.models.models_role import Role
+from models.models_role import Role
 from fastapi import HTTPException
 from sqlmodel import Session, select
-from backend.models.models_users import User
-from backend.auth import auth
-from backend.schema.schema_user import UserCreate, UserRead, UserUpdate
+from models.models_users import User
+from auth import auth
+from schema.schema_user import UserCreate, UserRead, UserUpdate
 
 def get_all_users(db : Session) -> list[UserRead]:
     users = db.exec(select(User)).all()

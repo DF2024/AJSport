@@ -4,10 +4,10 @@ from passlib.context import CryptContext
 from fastapi.security import HTTPBearer
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import HTTPException, status, Depends
-from backend.models.models_users import User
-from backend.database.db import get_session
+from models.models_users import User
+from database.db import get_session
 from sqlmodel import Session, select
-from backend.models.models_role import Role
+from models.models_role import Role
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -34,6 +34,14 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode.update({"exp" : expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm = ALGORITHM)
 
+
+
+
+
+
+
+
+
 def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -44,19 +52,31 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: int = payload.get("sub")
-        role_name: str = payload.get("role")
-        if user_id is None or role_name is None:
+        # role_name: str = payload.get("role")
+        if user_id is None:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
+    
+    user = session.exec(select(User).where(User.id_user == user_id)).first()
 
-    user = session.get(User, user_id)
     if user is None:
         raise credentials_exception
 
-    user.role = user.role or type("Role", (), {"name_role": role_name})()
+    if not user.role:
+        user.role = session.get(Role, user.role_id)
 
     return user
+
+
+
+
+
+
+
+
+
+
 
 def get_current_admin(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
     credentials_exception = HTTPException(

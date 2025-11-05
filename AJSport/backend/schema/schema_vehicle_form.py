@@ -1,6 +1,6 @@
 from fastapi import Form
 from typing import Optional
-from backend.schema.schema_vehicle import VehicleCreate, VehicleUpdate
+from schema.schema_vehicle import VehicleCreate, VehicleUpdate
 from pydantic import BaseModel
 
 class VehicleCreateForm(BaseModel):

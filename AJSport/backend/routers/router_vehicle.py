@@ -5,18 +5,18 @@ import csv
 import io
 import os # Asegúrate de importar os
 
-from backend.database.db import get_session
-from backend.utils.roles import require_role
-from backend.auth.auth import get_current_user # Asumo que esta es la base para la dependencia de usuario
-from backend.services import service_vehicle # Tus servicios existentes
-from backend.schema.schema_vehicle import VehicleRead, VehicleReadWithDetails, VehicleCreate # Importar VehicleCreate para CSV
-from backend.schema.schema_vehicle_form import VehicleCreateForm, VehicleUpdateForm # Para formularios
-from backend.models.models_trademark import Trademark # Importar modelos para lookups
-from backend.models.models_status import Status
-from backend.models.models_type import VehicleType
-from backend.schema.schema_trademark import TrademarkRead # Importar schemas de lectura para lookups
-from backend.schema.schema_status import StatusRead
-from backend.schema.schema_type import VehicleTypeRead
+from database.db import get_session
+from utils.roles import require_role
+from auth.auth import get_current_user # Asumo que esta es la base para la dependencia de usuario
+from services import service_vehicle # Tus servicios existentes
+from schema.schema_vehicle import VehicleRead, VehicleReadWithDetails, VehicleCreate # Importar VehicleCreate para CSV
+from schema.schema_vehicle_form import VehicleCreateForm, VehicleUpdateForm # Para formularios
+from models.models_trademark import Trademark # Importar modelos para lookups
+from models.models_status import Status
+from models.models_type import VehicleType
+from schema.schema_trademark import TrademarkRead # Importar schemas de lectura para lookups
+from schema.schema_status import StatusRead
+from schema.schema_type import VehicleTypeRead
 router = APIRouter(prefix="/vehicles", tags=["Vehicles"])
 
 DBSession = Annotated[Session, Depends(get_session)]
