@@ -1,37 +1,65 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Box } from '@mui/material';
-import { Link } from 'react-router-dom'; // Importa Link de react-router-dom
+import * as React from 'react';
+
+import AdbIcon from '@mui/icons-material/Adb';
+import { Link as RouterLink } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Link, Container} from '@mui/material';
+
 
 function NavForm() {
-  const companyLogo = 'https://via.placeholder.com/100x40?text=TuLogo'; // URL de tu logo
-  const companyName = 'Mi Empresa'; // Nombre de tu empresa
 
   return (
-    <AppBar position="static" color="primary">
-      <Toolbar>
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
 
-        <Box
-          sx={{
-            flexGrow: 1, 
-            display: 'flex',
-            alignItems: 'center',
-            cursor: 'pointer', 
-          }}
-          component={Link} 
-          to="/"        
-        >
-         
-          <img
-            src={companyLogo}
-            alt={`${companyName} Logo`}
-            style={{ height: '40px', marginRight: '10px' }} 
-          />
+            <Link
+                component={RouterLink} 
+                to="/" 
+                color="inherit" 
+                sx={{ textDecoration: 'none' }}
+            >
+              LOGO
+            </Link>
+          </Typography>
+
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            LOGO
+          </Typography>
  
-        </Box>
-
-      </Toolbar>
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 }
-
 export default NavForm;

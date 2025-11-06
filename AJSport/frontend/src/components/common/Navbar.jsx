@@ -12,7 +12,12 @@ function Navbar() {
                 <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
                     <DirectionsCarIcon sx={{ mr: 1 }} />
                     <Typography variant="h6" component="div">
-                        <Link component={RouterLink} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
+                        <Link 
+                        component={RouterLink} 
+                        to="/" 
+                        color="inherit" 
+                        sx={{ textDecoration: 'none' }}
+                        >
                         Mi Concesionario
                         </Link>
                     </Typography>
