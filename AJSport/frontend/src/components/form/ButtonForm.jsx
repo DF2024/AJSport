@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 // import SendIcon from '@mui/icons-material/Send'; // Icono para un botón de enviar
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-function FormButtons({name}) {
+function FormButtons({name, type = "button", onClick, ...props}) {
 
 
   return (

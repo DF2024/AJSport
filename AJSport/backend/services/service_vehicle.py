@@ -4,11 +4,15 @@ import uuid
 from fastapi import HTTPException, UploadFile
 from sqlmodel import Session, select
 from models.models_vehicle import Vehicle
+from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import joinedload
 from models.models_trademark import Trademark
 from models.models_status import Status
 from models.models_type import VehicleType
+from schema.schema_vehicle import VehicleReadWithDetails
 
-MEDIA_DIR = "backend/media/vehicles"
+
+MEDIA_DIR = "media/vehicles"
 os.makedirs(MEDIA_DIR, exist_ok=True)
 
 async def save_vehicle_image(image: UploadFile, vehicle_id: int) -> str:
@@ -39,39 +43,69 @@ def _validate_foreign_keys(db: Session, vehicle_data):
     if "type_id" in data_dict and not db.get(VehicleType, data_dict["type_id"]):
         raise HTTPException(status_code=404, detail=f"VehicleType with id {data_dict['type_id']} not found")
 
-def _add_image_url(vehicle: Vehicle):
+# def _add_image_url(vehicle: Vehicle):
 
-    image_url = (
-        f"http://127.0.0.1:8000/{vehicle.image_path}"
-        if vehicle.image_path else
-        "https://via.placeholder.com/300x200?text=No+image"
+#     image_url = (
+#         f"http://127.0.0.1:8000/{vehicle.image_path}"
+#         if vehicle.image_path else
+#         "https://via.placeholder.com/300x200?text=No+image"
+#     )
+
+#     # Retornamos un dict con todos los campos de Vehicle + image_url
+#     return {
+#         "id_vehicle": vehicle.id_vehicle,
+#         "name_vehicle": vehicle.name_vehicle,
+#         "description_vehicle": vehicle.description_vehicle,
+#         "year_vehicle": vehicle.year_vehicle,
+#         "mileage_vehicle": vehicle.mileage_vehicle,
+#         "price_vehicle": vehicle.price_vehicle,
+#         "image_path": vehicle.image_path,
+#         "image_url": image_url,
+#         "trademark_id": vehicle.trademark_id,
+#         "status_id": vehicle.status_id,
+#         "type_id": vehicle.type_id,
+#     }
+
+
+def _add_image_url(vehicle: Vehicle) -> VehicleReadWithDetails:
+    # Construye el schema de lectura con relaciones
+    return VehicleReadWithDetails(
+        id_vehicle=vehicle.id_vehicle,
+        name_vehicle=vehicle.name_vehicle,
+        description_vehicle=vehicle.description_vehicle,
+        year_vehicle=vehicle.year_vehicle,
+        mileage_vehicle=vehicle.mileage_vehicle,
+        price_vehicle=vehicle.price_vehicle,
+        image_path=vehicle.image_path,
+        image_url=f"http://127.0.0.1:8000/{vehicle.image_path}" if vehicle.image_path else "https://via.placeholder.com/300x200?text=No+image",
+        trademark=vehicle.trademark,
+        status=vehicle.status,
+        vehicle_type=vehicle.vehicle_type,
     )
-
-    # Retornamos un dict con todos los campos de Vehicle + image_url
-    return {
-        "id_vehicle": vehicle.id_vehicle,
-        "name_vehicle": vehicle.name_vehicle,
-        "description_vehicle": vehicle.description_vehicle,
-        "year_vehicle": vehicle.year_vehicle,
-        "mileage_vehicle": vehicle.mileage_vehicle,
-        "price_vehicle": vehicle.price_vehicle,
-        "image_path": vehicle.image_path,
-        "image_url": image_url,
-        "trademark_id": vehicle.trademark_id,
-        "status_id": vehicle.status_id,
-        "type_id": vehicle.type_id,
-    }
 
 
 # --- CRUD ---
 def get_all_vehicles(db: Session) -> list[Vehicle]:
-    # vehicles = db.exec(select(Vehicle)).all()
-    return db.query(Vehicle).all()
+    vehicles = db.exec(
+        select(Vehicle)
+        .options(
+            joinedload(Vehicle.trademark),
+            joinedload(Vehicle.status),
+            joinedload(Vehicle.vehicle_type)
+        )
+    ).all()
+    return vehicles
 
 def get_vehicle_by_id(db: Session, vehicle_id: int) -> Vehicle :
-    vehicle = db.get(Vehicle, vehicle_id)
-    if not vehicle:
-        raise HTTPException(status_code=404, detail="Vehicle not found")
+    vehicle = db.exec(
+        select(Vehicle)
+        .options(
+            selectinload(Vehicle.trademark),
+            selectinload(Vehicle.status),
+            selectinload(Vehicle.vehicle_type)
+        )
+        .where(Vehicle.id_vehicle == vehicle_id)
+    ).first()
     return vehicle
 
 def _create_vehicle_object_from_data(vehicle_data: dict) -> Vehicle:

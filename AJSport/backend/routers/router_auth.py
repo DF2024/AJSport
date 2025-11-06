@@ -1,6 +1,6 @@
 # En un archivo como: backend/routers/auth_router.py
 
-import select
+from sqlalchemy import select
 from models.models_users import User
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
@@ -8,7 +8,8 @@ from sqlalchemy.orm import selectinload
 from sqlmodel import Session
 from database.db import get_session
 from services import service_users
-from auth import auth
+from auth.auth import create_access_token, verify_password
+
 
 router = APIRouter(
     tags=["Authentication"]
@@ -24,10 +25,11 @@ def login_for_access_token(
     user = db.exec(
         select(User).options(selectinload(User.role))
         .where(User.email_user == form_data.username)
-    ).first()
+    ).scalars().first()
+
 
     
-    if not user or not auth.verify_password(form_data.password, user.hash_password):
+    if not user or not verify_password(form_data.password, user.hash_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
@@ -39,7 +41,7 @@ def login_for_access_token(
         "sub": str(user.id_user),
         "role" : user.role.name_role
         }
-    access_token = auth.create_access_token(data=access_token_data)
+    access_token = create_access_token(data=access_token_data)
 
     return {
         "access_token": access_token, 

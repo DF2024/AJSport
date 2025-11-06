@@ -25,7 +25,6 @@ class VehicleCreate(VehicleBase):
 class VehicleRead(VehicleBase):
     id_vehicle: int
 
-
 class VehicleReadWithDetails(VehicleRead):
     trademark: Optional["TrademarkRead"] = None
     status: Optional["StatusRead"] = None
@@ -34,7 +33,7 @@ class VehicleReadWithDetails(VehicleRead):
     @field_serializer("image_url")
     def compute_image_url(self, v, info):
         if self.image_path:
-            return f"http://127.0.0.1:8000/media/{self.image_path}"
+            return f"http://127.0.0.1:8000/{self.image_path}"
         return "https://via.placeholder.com/300x200?text=No+image"
     
     

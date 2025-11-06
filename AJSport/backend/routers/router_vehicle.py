@@ -30,7 +30,7 @@ async def create_vehicle_view(
 ):
     return await service_vehicle.create_vehicle(db=db, vehicle_data=vehicle_data, image=image)
 
-@router.get("/", response_model=list[VehicleRead])
+@router.get("/", response_model=list[VehicleReadWithDetails])
 def get_all_vehicles_view(db: DBSession):
     vehicle = service_vehicle.get_all_vehicles(db=db)
     return [service_vehicle._add_image_url(v) for v in vehicle]

@@ -37,11 +37,6 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 
 
-
-
-
-
-
 def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -64,7 +59,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
         raise credentials_exception
 
     if not user.role:
-        user.role = session.get(Role, user.role_id)
+        user.role = session.get(Role, user.role)
 
     return user
 

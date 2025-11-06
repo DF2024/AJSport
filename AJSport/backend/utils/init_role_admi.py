@@ -1,7 +1,8 @@
-from backend.database.db import engine
-from backend.models.models_users import User
-from backend.models.models_role import Role
-from backend.auth.auth import hash_password
+
+from database.db import engine
+from models.models_users import User
+from models.models_role import Role
+from auth.auth import hash_password
 from sqlmodel import Session, select
 from datetime import date
 

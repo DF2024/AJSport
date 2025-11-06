@@ -38,6 +38,7 @@ function VehicleTable({ onEdit, onRefresh }) {
     setError(null);
     try {
       const response = await api.get('/vehicles/'); // Endpoint que lista todos los vehículos (ya protegido por AdminAuth si quieres)
+      console.log('Vehículos recibidos:', response.data);
       setVehicles(response.data);
     } catch (err) {
       console.error('Error fetching vehicles:', err);

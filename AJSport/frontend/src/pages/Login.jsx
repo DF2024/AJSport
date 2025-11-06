@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography, TextField, Button, Stack, Alert } from "@mui/material";
 
-function Login({ apiBaseUrl = "http://127.0.0.1:8000" }) {
+function Login({ apiBaseUrl = "http://localhost:8000" }) {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -35,10 +35,10 @@ function Login({ apiBaseUrl = "http://127.0.0.1:8000" }) {
 
       // Guardamos el token en localStorage
       localStorage.setItem("token", data.access_token);
-      localStorage.setItem("role", JSON.stringify(data.role));
+      localStorage.setItem("role", data.role);
 
 
-      const role = JSON.parse(localStorage.getItem("role")).name_role.toLowerCase();
+      const role = localStorage.getItem("role").toLowerCase();
       // Redirigimos según el rol del usuario
       if (role === "admin") {
         navigate("/dashboard");
@@ -49,6 +49,7 @@ function Login({ apiBaseUrl = "http://127.0.0.1:8000" }) {
     } catch (err) {
 
       setError(err.message);
+      console.log(err)
     }
   };
 

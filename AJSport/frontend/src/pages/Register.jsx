@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Typography, Stack, Link as MuiLink } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-function Register({ apiBaseUrl = "http://127.0.0.1:8000" }) {
+function Register({ apiBaseUrl = "http://localhost:8000" }) {
   const [form, setForm] = useState({
     name_user: '',
     lastname_user: '',
