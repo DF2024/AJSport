@@ -10,3 +10,14 @@ export const getVehicles = async () => {
         throw error;
     }
 }
+
+export const getVehicleById = async (id) => {
+  try {
+    const response = await api.get(`/vehicles/${id}`); // ✅ comillas invertidas y sin fetch
+    console.log("Vehículo recibido:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error al obtener el vehículo con ID ${id}:`, error);
+    throw error;
+  }
+};

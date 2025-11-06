@@ -6,6 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 // Función para formatear el precio como USD
 const formatPrice = (price) => {
@@ -16,18 +18,19 @@ const formatPrice = (price) => {
   }).format(price);
 };
 
-
-
-
 const VehicleCard = ({ vehicle }) => {
   // Desestructuramos los campos del vehículo
   
+  const navigate = useNavigate()
+
+  if (!vehicle) return null;
+
   const { 
-    name_vehicle, 
-    description_vehicle, 
-    year_vehicle, 
-    price_vehicle, 
-    image_url // Esta debe venir desde tu API
+    name_vehicle,
+    year_vehicle,
+    price_vehicle,
+    image_url,
+    trademark,
   } = vehicle;
 
   console.log("Imagen del vehículo:", image_url);
@@ -56,8 +59,8 @@ const VehicleCard = ({ vehicle }) => {
       
       {/* Contenido */}
       <CardContent sx={{ flexGrow: 1 }}>
-        <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
-          {name_vehicle} - {year_vehicle}
+        <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+        {year_vehicle}  {trademark?.name_trademark || "Sin marca"} {name_vehicle}
         </Typography>
         <Typography
           variant="body2"
@@ -70,19 +73,23 @@ const VehicleCard = ({ vehicle }) => {
             WebkitBoxOrient: 'vertical',
           }}
         >
-          {description_vehicle || 'Sin descripción disponible.'}
+          {/* {description_vehicle || 'Sin descripción disponible.'} */}
         </Typography>
 
-        <Typography variant="h6" color="primary" sx={{ mt: 2 }}>
+        <Typography variant="h7" color="primary" sx={{ mt: 2 }}>
           {formatPrice(price_vehicle)}
         </Typography>
       </CardContent>
 
       {/* Botones */}
-      {/* <CardActions>
-        <Button size="small" variant="contained">Comprar</Button>
-        <Button size="small">Ver Detalles</Button>
-      </CardActions> */}
+     <CardActions sx={{p:2}}>
+        <Button 
+          fullWidth 
+          variant="contained" 
+          sx={{borderRadius : 1}}
+          onClick={() => navigate(`/vehicle/${vehicle.id_vehicle}`)}
+          >Ver Detalles</Button>
+      </CardActions> 
     </Card>
   );
 };

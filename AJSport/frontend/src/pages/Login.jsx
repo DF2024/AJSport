@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Typography, TextField, Button, Stack, Alert } from "@mui/material";
+import {Link as MuiLink} from "@mui/material";
+import { Link as RouterLink } from 'react-router-dom';
 
 function Login({ apiBaseUrl = "http://localhost:8000" }) {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -100,6 +102,21 @@ function Login({ apiBaseUrl = "http://localhost:8000" }) {
             />
 
             {error && <Alert severity="error">{error}</Alert>}
+            
+            <Box sx={{ textAlign: 'center', mt: 1 }}>
+              <Typography variant="body2">
+                ¿No tienes cuenta?{' '}
+                <MuiLink
+                  component={RouterLink}
+                  to="/registro"
+                  variant="body2"
+                  sx={{ cursor: 'pointer' }}
+                >
+                  Registrate
+                </MuiLink>
+              </Typography>
+            </Box>
+
 
             <Button
               type="submit"

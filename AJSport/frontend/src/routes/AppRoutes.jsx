@@ -6,6 +6,7 @@ import VehiclesPage from '../pages/VehiclesPage'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import AdminVehiclesPage from '../pages/admin/AdminVehiclesPage';
+import VehicleDetailPage from '../pages/VehicleDetailPage';
 
 const AppRoutes = () =>{
     return(
@@ -13,6 +14,7 @@ const AppRoutes = () =>{
         <Route element={<MainLayout/>}>
             <Route path="/" element={<HomePage />} />
             <Route path="/catalogo" element={<VehiclesPage />} />
+            <Route path='/vehicle/:id' element={<VehicleDetailPage />}/>
         </Route>
         
         <Route element={<SeconLayout/>}>
@@ -20,6 +22,7 @@ const AppRoutes = () =>{
             <Route path="/registro" element={<Register />} />
 
         </Route>
+        
         <Route path='/dashboard' element={<AdminVehiclesPage/>} />
 
 

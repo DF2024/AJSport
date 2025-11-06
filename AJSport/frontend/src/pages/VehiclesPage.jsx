@@ -47,8 +47,17 @@ const VehiclesPage = () => {
   }
 
   return (
-    <Container sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom>
+    <Container sx={{ py: 4}}>
+      <Typography 
+        variant="h3" 
+        textAlign="center" 
+        component="h1" 
+        gutterBottom
+        sx={{
+          p:2,
+          fontWeight: 'bold'
+        }}
+        >
         Nuestro Catálogo
       </Typography>
 
