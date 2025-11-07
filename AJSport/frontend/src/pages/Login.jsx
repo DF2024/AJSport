@@ -43,7 +43,7 @@ function Login({ apiBaseUrl = "http://localhost:8000" }) {
       const role = localStorage.getItem("role").toLowerCase();
       // Redirigimos según el rol del usuario
       if (role === "admin") {
-        navigate("/dashboard");
+        navigate("/dashboard/vehicles");
       } else {
         navigate("/");
       }

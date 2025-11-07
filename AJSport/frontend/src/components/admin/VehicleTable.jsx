@@ -85,7 +85,7 @@ function VehicleTable({ onEdit, onRefresh }) {
         <CircularProgress />
       </Box>
     );
-  }
+  }   
 
   if (error) {
     return (

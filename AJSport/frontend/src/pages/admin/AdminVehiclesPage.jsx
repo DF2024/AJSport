@@ -4,6 +4,8 @@ import { Typography, Box, Button, Stack } from '@mui/material';
 import VehicleTable from '../../components/admin/VehicleTable';
 import VehicleForm from '../../components/admin/VehicleForm';
 import CSVUploadForm from '../../components/admin/CSVUploadForm';
+import AdminDashboardLayout from  '../../layouts/AdminDashboardLayout'
+
 
 function AdminVehiclesPage() {
   const [currentView, setCurrentView] = useState('table'); // 'table', 'create', 'edit', 'csv'
@@ -34,6 +36,7 @@ function AdminVehiclesPage() {
   };
 
   return (
+
     <Box>
       <Typography variant="h4" component="h1" gutterBottom>
         Gestión de Vehículos
@@ -66,6 +69,7 @@ function AdminVehiclesPage() {
         <CSVUploadForm onUploadSuccess={handleActionSuccess} onCancel={handleCancel} />
       )}
     </Box>
+
   );
 }
 

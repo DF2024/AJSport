@@ -1,16 +1,21 @@
 from models.models_role import Role
 from fastapi import HTTPException
-from sqlmodel import Session, select
+from sqlmodel import select, Session
+from sqlalchemy.orm import selectinload
 from models.models_users import User
 from auth import auth
 from schema.schema_user import UserCreate, UserRead, UserUpdate
 
 def get_all_users(db : Session) -> list[UserRead]:
-    users = db.exec(select(User)).all()
+    users = db.exec(
+        select(User).options(selectinload(User.role))
+        ).all()
     return [UserRead.model_validate(user) for user in users]
 
 def get_user_by_id(db: Session, user_id: int):
-    user = db.get(User, user_id)
+    user = db.exec(
+        select(User).options(selectinload(User.role)).where(User.id_user == user_id)
+    ).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     

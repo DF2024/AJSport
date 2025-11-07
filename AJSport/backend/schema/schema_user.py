@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
 from datetime import datetime, date
+from schema.schema_role import RoleRead
 from pydantic import BaseModel, EmailStr
 from sqlmodel import SQLModel
 
@@ -18,6 +19,7 @@ class UserCreate(UserBase):
 class UserRead(UserBase):
     id_user : int
     create_at : datetime
+    role: Optional[RoleRead] = None 
 
 class UserUpdate(SQLModel):
     name_user : Optional[str] = None
