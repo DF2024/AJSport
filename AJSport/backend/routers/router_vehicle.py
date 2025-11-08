@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status, UploadFile, File, HTTPException
+from fastapi import APIRouter, Depends, status, UploadFile, File, HTTPException, Body
 from sqlmodel import Session, select
 from typing import Optional, Annotated, List
 import csv
@@ -103,10 +103,15 @@ async def upload_vehicles_csv(
             if not vehicle_type_obj:
                 raise ValueError(f"VehicleType ID {vehicle_data['type_id']} not found.")
 
+            if not trademark or not status_obj or not vehicle_type_obj:
+                print(f"Fila {i+1}: ID inexistente")
+
+
             # Crear instancia de Vehicle y añadir
             vehicles_to_add.append(service_vehicle._create_vehicle_object_from_data(vehicle_data)) # Puedes mover esta lógica a service_vehicle
         
         except (ValueError, KeyError) as e:
+            print(f"Fila {i+1} error: {e} - Datos: {row}")
             errors.append(f"Row {i+1} parsing error: {e} - Data: {row}")
             continue
         
@@ -117,3 +122,25 @@ async def upload_vehicles_csv(
     db.commit()
 
     return {"message": f"Successfully added {len(vehicles_to_add)} vehicles from CSV."}
+
+
+@router.delete("/bulk-delete/", status_code=status.HTTP_200_OK, dependencies=AdminAuth)
+def bulk_delete_vehicles(
+    db: DBSession,
+    ids: list[int] = Body(..., embed=True)
+):
+    if not ids:
+        raise HTTPException(status_code=400, detail="No vehicle IDs provided.")
+
+    from models.models_vehicle import Vehicle  # asegúrate de importar tu modelo Vehicle
+
+    vehicles = db.exec(select(Vehicle).where(Vehicle.id_vehicle.in_(ids))).all()
+    
+    if not vehicles:
+        raise HTTPException(status_code=404, detail="No matching vehicles found.")
+
+    for vehicle in vehicles:
+        db.delete(vehicle)
+
+    db.commit()
+    return {"message": f"Successfully deleted {len(vehicles)} vehicles."}

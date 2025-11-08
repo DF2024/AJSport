@@ -9,7 +9,7 @@ from database.db import get_session
 from sqlmodel import Session, select
 from models.models_role import Role
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 SECRET_KEY = "secret_key_auth"
 
