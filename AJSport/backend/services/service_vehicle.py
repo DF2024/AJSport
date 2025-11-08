@@ -43,29 +43,6 @@ def _validate_foreign_keys(db: Session, vehicle_data):
     if "type_id" in data_dict and not db.get(VehicleType, data_dict["type_id"]):
         raise HTTPException(status_code=404, detail=f"VehicleType with id {data_dict['type_id']} not found")
 
-# def _add_image_url(vehicle: Vehicle):
-
-#     image_url = (
-#         f"http://127.0.0.1:8000/{vehicle.image_path}"
-#         if vehicle.image_path else
-#         "https://via.placeholder.com/300x200?text=No+image"
-#     )
-
-#     # Retornamos un dict con todos los campos de Vehicle + image_url
-#     return {
-#         "id_vehicle": vehicle.id_vehicle,
-#         "name_vehicle": vehicle.name_vehicle,
-#         "description_vehicle": vehicle.description_vehicle,
-#         "year_vehicle": vehicle.year_vehicle,
-#         "mileage_vehicle": vehicle.mileage_vehicle,
-#         "price_vehicle": vehicle.price_vehicle,
-#         "image_path": vehicle.image_path,
-#         "image_url": image_url,
-#         "trademark_id": vehicle.trademark_id,
-#         "status_id": vehicle.status_id,
-#         "type_id": vehicle.type_id,
-#     }
-
 
 def _add_image_url(vehicle: Vehicle) -> VehicleReadWithDetails:
     # Construye el schema de lectura con relaciones

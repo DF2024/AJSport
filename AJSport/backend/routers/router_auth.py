@@ -39,12 +39,13 @@ def login_for_access_token(
 
     access_token_data = {
         "sub": str(user.id_user),
-        "role" : user.role.name_role
+        "role" : user.role.name_role,
         }
     access_token = create_access_token(data=access_token_data)
 
     return {
         "access_token": access_token, 
         "token_type": "bearer",
-        "role": user.role.name_role
-            }
+        "role": user.role.name_role,
+        "username": user.name_user
+    }

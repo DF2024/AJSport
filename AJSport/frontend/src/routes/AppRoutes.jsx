@@ -10,6 +10,7 @@ import AdminVehiclesPage from '../pages/admin/AdminVehiclesPage';
 import AdminDashboard from '../pages/admin/AdminDashBoard';
 import AdminUsersPage from '../pages/admin/AdminUsersPage';
 import VehicleDetailPage from '../pages/VehicleDetailPage';
+import CartPage from '../pages/CartPage';
 
 const AppRoutes = () =>{
     return(
@@ -18,6 +19,7 @@ const AppRoutes = () =>{
             <Route path="/" element={<HomePage />} />
             <Route path="/catalogo" element={<VehiclesPage />} />
             <Route path='/vehicle/:id' element={<VehicleDetailPage />}/>
+            <Route path="/cart" element={<CartPage />} />
         </Route>
         
         <Route element={<SeconLayout/>}>

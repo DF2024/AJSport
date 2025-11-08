@@ -16,6 +16,9 @@ const theme = createTheme({
             default: '#d8d8d8ff',
             paper: '#ffffff', 
         },
+        wt:{
+            main: '#d8d8d8ff',
+        },
     },
 
     // TIPOGRAFIA

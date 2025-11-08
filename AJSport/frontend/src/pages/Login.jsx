@@ -30,7 +30,9 @@ function Login({ apiBaseUrl = "http://localhost:8000" }) {
 
       const data = await res.json();
 
+      console.log(data)
 
+      
       if (!res.ok) {
         throw new Error(data.detail || "Error al iniciar sesión");
       }
@@ -38,7 +40,7 @@ function Login({ apiBaseUrl = "http://localhost:8000" }) {
       // Guardamos el token en localStorage
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.role);
-
+      localStorage.setItem("username", data.username)
 
       const role = localStorage.getItem("role").toLowerCase();
       // Redirigimos según el rol del usuario
