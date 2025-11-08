@@ -23,8 +23,11 @@ const CartPage = () => {
   if (cart.length === 0) {
     return (
       <Container sx={{ py: 5 }}>
-        <Typography variant="h4" align="center">
-          Tu carrito está vacío 🛒
+        <Typography variant="h2" align="center"         sx={{
+          p:2,
+          fontWeight: 'bold'
+        }}>
+          Tu carrito está vacío 
         </Typography>
       </Container>
     );

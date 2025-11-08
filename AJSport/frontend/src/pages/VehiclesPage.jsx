@@ -66,8 +66,12 @@ const VehiclesPage = () => {
         <Grid container spacing={4}>
           {vehicles.map((vehicle) => (
         
-            <Grid key={vehicle.id_vehicle} xs={12} sm={6} md={4}>
-              <VehicleCard vehicle={vehicle} />
+            <Grid 
+              item
+              key={vehicle.id_vehicle} 
+              xs={12} sm={6} md={4}>
+              <VehicleCard vehicle={vehicle} 
+              />
             </Grid>
           ))}
         </Grid>

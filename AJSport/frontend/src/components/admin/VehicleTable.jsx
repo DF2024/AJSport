@@ -1,3 +1,4 @@
+// src/components/admin/VehicleTable.jsx
 import React, { useState, useEffect } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { Box, Button, CircularProgress, Alert, Avatar } from '@mui/material';
@@ -73,6 +74,15 @@ function VehicleTable({ onEdit, onRefresh }) {
 
   if (error) return <Alert severity="error">{error}</Alert>;
 
+  // Aplanar datos para columnas anidadas
+  const rows = vehicles.map(v => ({
+    ...v,
+    trademark_name: v.trademark?.name_trademark ?? 'N/A',
+    status_name: v.status?.status ?? 'N/A',
+    vehicle_type_name: v.vehicle_type?.name_type ?? 'N/A',
+  }));
+
+  // Columnas de la tabla
   const columns = [
     { field: 'id_vehicle', headerName: 'ID', width: 80 },
     {
@@ -81,7 +91,7 @@ function VehicleTable({ onEdit, onRefresh }) {
       width: 80,
       renderCell: (params) => (
         <Avatar
-          src={params.row?.image_url || undefined}
+          src={params.row?.image_url}
           alt={params.row?.name_vehicle || ''}
           variant="rounded"
           sx={{ width: 56, height: 56 }}
@@ -93,22 +103,15 @@ function VehicleTable({ onEdit, onRefresh }) {
       filterable: false,
     },
     { field: 'name_vehicle', headerName: 'Nombre', width: 180 },
-    {
-      field: 'trademark',
-      headerName: 'Marca',
-      width: 150,
-      valueGetter: (params) => params.row?.trademark?.name_trademark || 'N/A',
-    },
+    { field: 'trademark_name', headerName: 'Marca', width: 150 },
     { field: 'year_vehicle', headerName: 'Año', width: 100 },
-    {
-      field: 'price_vehicle',
-      headerName: 'Precio',
+    { 
+      field: 'price_vehicle', 
+      headerName: 'Precio', 
       width: 120,
-      valueFormatter: (params) => {
-        const value = params.value;
-        return typeof value === 'number' ? `$${value.toFixed(2)}` : 'N/A';
-      },
     },
+    { field: 'status_name', headerName: 'Estado', width: 120 },
+    { field: 'vehicle_type_name', headerName: 'Tipo', width: 130 },
     {
       field: 'actions',
       headerName: 'Acciones',
@@ -142,18 +145,14 @@ function VehicleTable({ onEdit, onRefresh }) {
       </Box>
 
       <DataGrid
-        rows={vehicles}
+        rows={rows}
         columns={columns}
         getRowId={(row) => row.id_vehicle}
         checkboxSelection
-        selectionModel={selectionModel}
         rowSelectionModel={selectionModel}
-        onRowSelectionModelChange={(newSelection) => {
-          console.log("✅ Selección actual:", newSelection);
-          setSelectionModel(newSelection);
-        }}
+        onRowSelectionModelChange={(newSelection) => setSelectionModel(newSelection)}
         disableSelectionOnClick
-        components={{ Toolbar: GridToolbar }}
+        slots={{ toolbar: GridToolbar }}
       />
     </Box>
   );

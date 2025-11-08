@@ -16,7 +16,7 @@ const Footer = () => {
           {/* Columna 1: Logo o nombre */}
           <Grid item xs={12} md={4}>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
-              Mi Concesionario
+              AJSport
             </Typography>
             <Typography variant="body2" color="grey.400">
               Calidad, confianza y atención personalizada para que conduzcas con tranquilidad.
@@ -51,13 +51,13 @@ const Footer = () => {
             </Typography>
             <Stack spacing={1}>
               <Typography variant="body2" color="grey.400">
-                📍 Calle 123 #45-67, Bogotá, Colombia
+                 Calle 123 #45-67, Bogotá, Colombia
               </Typography>
               <Typography variant="body2" color="grey.400">
-                📞 +57 300 123 4567
+                 +57 300 123 4567
               </Typography>
               <Typography variant="body2" color="grey.400">
-                ✉️ contacto@miconcesionario.com
+                 contacto@AJSport.com
               </Typography>
             </Stack>
           </Grid>
@@ -66,7 +66,7 @@ const Footer = () => {
         {/* Línea inferior */}
         <Box mt={5} textAlign="center" borderTop={1} borderColor="grey.800" pt={3}>
           <Typography variant="body2" color="grey.500">
-            © {new Date().getFullYear()} Mi Concesionario. Todos los derechos reservados.
+            © {new Date().getFullYear()} AJSport. Todos los derechos reservados.
           </Typography>
         </Box>
       </Container>

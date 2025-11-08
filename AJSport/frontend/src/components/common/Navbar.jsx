@@ -44,7 +44,7 @@ function Navbar() {
                         color="inherit" 
                         sx={{ textDecoration: 'none' }}
                         >
-                        Mi Concesionario
+                        AJSport
                         </Link>
                     </Typography>
                 </Box>

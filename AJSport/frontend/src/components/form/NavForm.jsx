@@ -11,7 +11,6 @@ function NavForm() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -33,11 +32,11 @@ function NavForm() {
                 color="inherit" 
                 sx={{ textDecoration: 'none' }}
             >
-              LOGO
+              AJSport
             </Link>
           </Typography>
 
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          
           <Typography
             variant="h5"
             noWrap
@@ -54,7 +53,7 @@ function NavForm() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            AJSport
           </Typography>
  
         </Toolbar>
