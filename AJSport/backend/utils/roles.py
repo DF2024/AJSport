@@ -7,7 +7,7 @@ from sqlmodel import Session, select
 
 
 def require_role(*roles: str):
-    """Dependencia para verificar acceso basado en roles"""
+
     def role_checker(
             current_user: User = Depends(get_current_user),
             session: Session = Depends(get_session)

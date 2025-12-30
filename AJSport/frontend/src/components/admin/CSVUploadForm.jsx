@@ -50,8 +50,8 @@ function CSVUploadForm({ onUploadSuccess, onCancel }) {
       });
       setMessage(response.data.message || 'CSV subido exitosamente.');
       setSeverity('success');
-      setSelectedFile(null); // Limpiar el input de archivo
-      onUploadSuccess(); // Para refrescar la lista de vehículos
+      setSelectedFile(null); 
+      onUploadSuccess(); 
     } catch (error) {
       console.error('Error uploading CSV:', error.response?.data || error.message);
       setMessage(

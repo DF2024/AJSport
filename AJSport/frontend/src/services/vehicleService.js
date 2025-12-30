@@ -13,7 +13,7 @@ export const getVehicles = async () => {
 
 export const getVehicleById = async (id) => {
   try {
-    const response = await api.get(`/vehicles/${id}`); // ✅ comillas invertidas y sin fetch
+    const response = await api.get(`/vehicles/${id}`);
     console.log("Vehículo recibido:", response.data);
     return response.data;
   } catch (error) {

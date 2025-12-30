@@ -28,7 +28,7 @@ function UserForm({ userId, onSave, onCancel }) {
 
   const [roles, setRoles] = useState([]);
 
-  // Cargar roles y datos del usuario si se está editando
+
   useEffect(() => {
     const fetchLookups = async () => {
       try {
@@ -70,13 +70,13 @@ function UserForm({ userId, onSave, onCancel }) {
     }
   }, [userId]);
 
-  // Manejar cambios de inputs
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Enviar formulario
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -86,15 +86,15 @@ function UserForm({ userId, onSave, onCancel }) {
     try {
       let response;
       if (userId) {
-        // Actualizar usuario existente
+  
         response = await api.put(`/users/${userId}`, formData);
         setSuccess('Usuario actualizado exitosamente.');
       } else {
-        // Crear nuevo usuario
+
         response = await api.post('/users/', formData);
         setSuccess('Usuario creado exitosamente.');
       }
-      onSave(); // Notificar a la página para refrescar tabla o vista
+      onSave();
     } catch (err) {
       console.error('Error saving user:', err.response?.data || err.message);
       setError(

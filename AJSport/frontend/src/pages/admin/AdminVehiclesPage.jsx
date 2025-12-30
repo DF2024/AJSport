@@ -8,7 +8,7 @@ import AdminDashboardLayout from  '../../layouts/AdminDashboardLayout'
 
 
 function AdminVehiclesPage() {
-  const [currentView, setCurrentView] = useState('table'); // 'table', 'create', 'edit', 'csv'
+  const [currentView, setCurrentView] = useState('table');
   const [editingVehicleId, setEditingVehicleId] = useState(null);
 
   const handleEdit = (id) => {
@@ -25,10 +25,9 @@ function AdminVehiclesPage() {
     setCurrentView('csv');
   };
 
-  // Función para refrescar la tabla y volver a la vista de tabla
   const handleActionSuccess = () => {
     setCurrentView('table');
-    // La VehicleTable se volverá a montar y cargará los datos frescos
+
   };
 
   const handleCancel = () => {

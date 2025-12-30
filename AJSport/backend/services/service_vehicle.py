@@ -1,6 +1,6 @@
 import os
 import uuid
-# from uuid import uuid4
+
 from fastapi import HTTPException, UploadFile
 from sqlmodel import Session, select
 from models.models_vehicle import Vehicle
@@ -26,14 +26,14 @@ async def save_vehicle_image(image: UploadFile, vehicle_id: int) -> str:
         content = await image.read()
         f.write(content)
 
-    return f"media/vehicles/{filename}"  # ruta relativa
+    return f"media/vehicles/{filename}"  
 
 def delete_vehicle_image(image_path: str):
     file_path = os.path.join("backend/media", image_path)
     if os.path.exists(file_path):
         os.remove(file_path)
 
-# --- Helpers ---
+
 def _validate_foreign_keys(db: Session, vehicle_data):
     data_dict = vehicle_data.model_dump(exclude_unset=True)
     if "trademark_id" in data_dict and not db.get(Trademark, data_dict["trademark_id"]):
@@ -45,7 +45,7 @@ def _validate_foreign_keys(db: Session, vehicle_data):
 
 
 def _add_image_url(vehicle: Vehicle) -> VehicleReadWithDetails:
-    # Construye el schema de lectura con relaciones
+  
     return VehicleReadWithDetails(
         id_vehicle=vehicle.id_vehicle,
         name_vehicle=vehicle.name_vehicle,
@@ -61,7 +61,7 @@ def _add_image_url(vehicle: Vehicle) -> VehicleReadWithDetails:
     )
 
 
-# --- CRUD ---
+
 def get_all_vehicles(db: Session) -> list[Vehicle]:
     vehicles = db.exec(
         select(Vehicle)

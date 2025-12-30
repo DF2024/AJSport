@@ -13,7 +13,7 @@ function VehicleTable({ onEdit, onRefresh }) {
   const [error, setError] = useState(null);
   const [selectionModel, setSelectionModel] = useState([]);
 
-  // Cargar vehículos
+
   const fetchVehicles = async () => {
     setLoading(true);
     setError(null);
@@ -32,7 +32,7 @@ function VehicleTable({ onEdit, onRefresh }) {
     fetchVehicles();
   }, [onRefresh]);
 
-  // Eliminar un vehículo individual
+
   const handleDelete = async (id) => {
     if (!window.confirm('¿Seguro que deseas eliminar este vehículo?')) return;
     try {
@@ -44,7 +44,7 @@ function VehicleTable({ onEdit, onRefresh }) {
     }
   };
 
-  // Eliminar múltiples vehículos
+
   const handleBulkDelete = async () => {
     if (selectionModel.length === 0) {
       alert('No has seleccionado ningún vehículo.');
@@ -74,7 +74,7 @@ function VehicleTable({ onEdit, onRefresh }) {
 
   if (error) return <Alert severity="error">{error}</Alert>;
 
-  // Aplanar datos para columnas anidadas
+
   const rows = vehicles.map(v => ({
     ...v,
     trademark_name: v.trademark?.name_trademark ?? 'N/A',

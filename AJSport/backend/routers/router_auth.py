@@ -1,4 +1,4 @@
-# En un archivo como: backend/routers/auth_router.py
+
 
 from sqlalchemy import select
 from models.models_users import User

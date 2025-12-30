@@ -33,7 +33,7 @@ function Register({ apiBaseUrl = "http://localhost:8000" }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
-    setErrors(prev => ({ ...prev, [name]: null })); // Limpiar error al cambiar
+    setErrors(prev => ({ ...prev, [name]: null })); 
   };
 
   const validate = () => {
@@ -43,7 +43,7 @@ function Register({ apiBaseUrl = "http://localhost:8000" }) {
     if (!form.email_user) newErrors.email_user = "El email es obligatorio";
     if (!form.password || form.password.length < 6)
       newErrors.password = "La contraseña debe tener al menos 6 caracteres";
-    // Puedes agregar validaciones adicionales para cédula, teléfono o fecha
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -65,7 +65,7 @@ function Register({ apiBaseUrl = "http://localhost:8000" }) {
       const data = await res.json();
 
       if (!res.ok) {
-        // Si el backend devuelve un array de errores por campo
+   
         if (data.detail && Array.isArray(data.detail)) {
           const backendErrors = {};
           data.detail.forEach(err => {

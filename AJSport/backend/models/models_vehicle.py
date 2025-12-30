@@ -18,12 +18,12 @@ class Vehicle(SQLModel, table = True):
     price_vehicle : float
     image_path: Optional[str] = Field(default=None)
 
-    #CLAVES FORANEAS
+
     trademark_id : Optional[int] = Field(default = None, foreign_key="trademark.id_trademark")
     status_id : Optional[int] = Field(default = None, foreign_key="status.id_status")
     type_id: Optional[int] = Field(default = None, foreign_key = "vehicletype.id_type")
 
-    #RELACIONES
+
     trademark: Optional["Trademark"] = Relationship(back_populates="vehicles")
     status: Optional["Status"] = Relationship(back_populates="vehicles")
     vehicle_type: Optional["VehicleType"] = Relationship(back_populates="vehicles")

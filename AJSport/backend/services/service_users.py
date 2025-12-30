@@ -22,7 +22,7 @@ def get_user_by_id(db: Session, user_id: int):
     return UserRead.model_validate(user)
 
 def get_user_by_email(db: Session, email: str) -> User | None:
-    """Obtiene un usuario por su dirección de email."""
+
     statement = select(User).where(User.email_user == email)
     return db.exec(statement).first()
 
@@ -60,7 +60,7 @@ def create_users(db: Session, user_data: UserCreate):
     return new_user
 
 def update_user(db: Session, user_id: int, user_data: UserUpdate):
-    """Actualiza un usuario existente."""
+
     user = db.get(User, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")

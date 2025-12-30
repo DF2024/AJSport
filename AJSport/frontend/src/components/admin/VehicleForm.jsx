@@ -37,9 +37,9 @@ function VehicleForm({ vehicleId, onSave, onCancel }) {
     const fetchLookups = async () => {
     try {
         const [trademarksRes, statusesRes, typesRes] = await Promise.all([
-            api.get('/trademarks/'), // <-- Cambia a la ruta base de tu router_trademark.py
-            api.get('/statuses/'),   // <-- Cambia a la ruta base de tu router_status.py
-            api.get('/vehicle-types/'),      // <-- Cambia a la ruta base de tu router_type.py
+            api.get('/trademarks/'), 
+            api.get('/statuses/'),   
+            api.get('/vehicle-types/'),      
         ]);
         setTrademarks(trademarksRes.data);
         setStatuses(statusesRes.data);
@@ -116,7 +116,7 @@ function VehicleForm({ vehicleId, onSave, onCancel }) {
         });
         setSuccess('Vehículo creado exitosamente.');
       }
-      onSave(); // Notificar a la página principal para refrescar
+      onSave(); 
     } catch (err) {
       console.error('Error saving vehicle:', err.response?.data || err.message);
       setError(

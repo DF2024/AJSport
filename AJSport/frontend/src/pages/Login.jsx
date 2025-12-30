@@ -37,13 +37,13 @@ function Login({ apiBaseUrl = "http://localhost:8000" }) {
         throw new Error(data.detail || "Error al iniciar sesión");
       }
 
-      // Guardamos el token en localStorage
+
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.role);
       localStorage.setItem("username", data.username)
 
       const role = localStorage.getItem("role").toLowerCase();
-      // Redirigimos según el rol del usuario
+
       if (role === "admin") {
         navigate("/dashboard/vehicles");
       } else {

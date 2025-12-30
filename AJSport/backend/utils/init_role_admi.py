@@ -9,7 +9,7 @@ from datetime import date
 
 def init_roles_and_admin():
     with Session(engine) as session:
-        # Crear roles si no existen
+
         admin_role = session.exec(select(Role).where(Role.name_role == "admin")).first()
         client_role = session.exec(select(Role).where(Role.name_role == "client")).first()
 
@@ -21,7 +21,6 @@ def init_roles_and_admin():
             session.add(client_role)
         session.commit()
 
-        # Crear usuario administrador si no existe
         admin_user = session.exec(select(User).where(User.email_user == "admin@example.com")).first()
         if not admin_user:
             admin_user = User(
@@ -31,7 +30,7 @@ def init_roles_and_admin():
                 hash_password=hash_password("admin123"),
                 ci_user="00000000",
                 number_user="00000000",
-                born_date=date(1990, 1, 1),  # ✅ fecha como objeto date
+                born_date=date(1990, 1, 1),  
                 role_id=admin_role.id_role,
             )
             session.add(admin_user)

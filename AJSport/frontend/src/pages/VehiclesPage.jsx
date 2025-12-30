@@ -1,7 +1,7 @@
 // src/pages/VehiclesPage.jsx
 
 import { useState, useEffect } from 'react';
-// 1. AÑADE Grid a la importación
+
 import { Container, Typography, CircularProgress, Alert, Box, Grid } from '@mui/material';
 
 import { getVehicles } from '../services/vehicleService';

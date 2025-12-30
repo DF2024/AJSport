@@ -14,7 +14,7 @@ router = APIRouter(
 
 @router.post("/", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 def create_new_user(user_data: UserCreate, db: Session = Depends(get_session)):
-    """Crea un nuevo usuario."""
+
     return service_users.create_users(db=db, user_data=user_data)
 
 @router.get("/", response_model=list[UserRead], dependencies=[Depends(require_role("admin"))])

@@ -13,9 +13,9 @@ import {
   CssBaseline,
   Divider,
 } from '@mui/material';
-// import DashboardIcon from '@mui/icons-material/Dashboard';
+
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import PeopleIcon from '@mui/icons-material/People'; // Para gestionar usuarios (futuro)
+import PeopleIcon from '@mui/icons-material/People'; 
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -31,9 +31,9 @@ function AdminDashboardLayout({ children }) {
   };
 
   const navItems = [
-    // { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
+    
     { text: 'Vehículos', icon: <DirectionsCarIcon />, path: '/dashboard/vehicles' },
-    { text: 'Usuarios', icon: <PeopleIcon />, path: '/dashboard/users' }, // Futura ruta
+    { text: 'Usuarios', icon: <PeopleIcon />, path: '/dashboard/users' }, 
   ];
 
   return (
@@ -66,7 +66,7 @@ function AdminDashboardLayout({ children }) {
           },
         }}
       >
-        <Toolbar /> {/* Para empujar el contenido debajo del AppBar */}
+        <Toolbar /> 
         <Box sx={{ overflow: 'auto' }}>
           <List>
             {navItems.map((item) => (
@@ -79,12 +79,12 @@ function AdminDashboardLayout({ children }) {
             ))}
           </List>
           <Divider />
-          {/* Puedes añadir más secciones aquí si es necesario */}
+        
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
         {' '}
-        {/* mt para evitar que el contenido quede debajo del AppBar */}
+       
         {children}
       </Box>
     </Box>

@@ -17,10 +17,10 @@ function AdminUsersPage(){
         setCurrentView('create');
     };
 
-  // Función para refrescar la tabla y volver a la vista de tabla
+
     const handleActionSuccess = () => {
         setCurrentView('table');
-        // La VehicleTable se volverá a montar y cargará los datos frescos
+
     };
 
     const handleCancel = () => {

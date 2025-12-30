@@ -21,7 +21,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import api from '../../services/api' // Tu instancia de Axios
+import api from '../../services/api' 
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 
 function UserTable({ onEdit, onRefresh }){
@@ -35,7 +35,7 @@ function UserTable({ onEdit, onRefresh }){
             setLoading(true);
             setError(null);
             try {
-                const response = await api.get('/users/'); // Endpoint que lista todos los vehículos (ya protegido por AdminAuth si quieres)
+                const response = await api.get('/users/');
                 console.log('Usuarios recibidos:', response.data);
                 setUsers(response.data);
             } catch (err) {
@@ -49,8 +49,7 @@ function UserTable({ onEdit, onRefresh }){
 
         useEffect(() => {
             fetchUsers();
-        }, [onRefresh]) // Refresca la tabla cuando onRefresh cambia (cuando un formulario se guarda)
-
+        }, [onRefresh]) 
         const handleDeleteClick = (userId) => {
             setUserToDelete(userId)
             setOpenConfirm(true);
